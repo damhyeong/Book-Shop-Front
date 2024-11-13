@@ -1,17 +1,9 @@
 import {ThemeName} from "../../style/theme";
+import {useContext} from "react";
+import {ThemeContext} from "../../context/themeContext";
 
-interface IThemeSwitcherProps {
-    themeName : ThemeName;
-    setThemeName: (themeName: ThemeName) => void;
-}
-
-const ThemeSwitcher : React.FC<IThemeSwitcherProps> = ({
-    themeName,
-    setThemeName
-}) => {
-    const toggleTheme = () => {
-        setThemeName(themeName === "light" ? "dark" : "light");
-    }
+const ThemeSwitcher : React.FC = () => {
+    const { themeName, toggleTheme } = useContext(ThemeContext);
 
     return (
         <button
