@@ -1,9 +1,21 @@
+import styled from "styled-components";
+
 const Header = () => {
     return (
-        <header>
-            Book-Shop
-        </header>
-    )
+        <HeaderStyle>
+            <h1>
+                Book-Shop
+            </h1>
+        </HeaderStyle>
+    );
 }
+
+const HeaderStyle = styled.header`
+    background-color: ${({theme}) => theme.color.background};
+    
+    h1{
+        color: ${({theme}) => theme.color.primary};
+    }
+`
 
 export default Header;
