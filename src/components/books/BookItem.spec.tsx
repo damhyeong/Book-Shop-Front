@@ -19,7 +19,7 @@ const dummyBook : Book = {
     detail : "Dummy Detail",
     pages : 120,
     contents: "Dummy Contents",
-    pubDate : "2024-09-12,"
+    pub_date : "2024-09-12,"
 };
 
 describe("BookItem 렌더링 테스트", () => {
