@@ -1,24 +1,21 @@
 export interface Order {
     id : number;
-    createdAt : string;
+    created_at : string;
     address : string;
     receiver : string;
     contact : string;
-    bookTitle : string;
-    totalQuantity : number;
-    totalPrice : number;
+    book_title : string;
+    total_quantity : number;
+    total_price : number;
+    detail? : OrderDetailItem[];
 }
 
 export interface OrderSheet {
     items: number[];
-    totalQuantity : number;
-    totalPrice : number;
+    total_quantity : number;
+    total_price : number;
     firstBookTitle : string;
-    delivery : {
-        address : string;
-        receiver: string;
-        contact : string;
-    }
+    delivery : Delivery;
 }
 
 
@@ -29,7 +26,7 @@ export interface Delivery {
 }
 
 export interface OrderDetailItem {
-    bookId: number;
+    book_id: number;
     title: string;
     author: string;
     price: number;

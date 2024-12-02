@@ -34,7 +34,7 @@ const Cart = () => {
         deleteCartItem(id);
     }
 
-    const totalQuantity = useMemo(() => {
+    const total_quantity = useMemo(() => {
         return carts.reduce((acc, cart) => {
             if(checkedItems.includes(cart.id)) {
                 return acc + cart.quantity;
@@ -43,7 +43,7 @@ const Cart = () => {
         }, 0);
     }, [carts, checkedItems]);
 
-    const totalPrice = useMemo(() => {
+    const total_price = useMemo(() => {
         return carts.reduce((acc, cart) => {
             if(checkedItems.includes(cart.id)) {
                 return acc + cart.price * cart.quantity;
@@ -60,8 +60,8 @@ const Cart = () => {
 
         const orderData : Omit<OrderSheet, "delivery"> = {
             items : checkedItems,
-            totalPrice,
-            totalQuantity,
+            total_price,
+            total_quantity,
             firstBookTitle : carts[0].title,
         };
 
@@ -91,7 +91,7 @@ const Cart = () => {
                                 }
                             </div>
                             <div className={"summary"}>
-                                <CartSummary totalQuantity={totalQuantity} totalPrice={totalPrice}/>
+                                <CartSummary totalQuantity={total_quantity} totalPrice={total_price}/>
                                 <Button size={"large"} scheme={"primary"} onClick={handleOrder}>
                                     주문하기
                                 </Button>
@@ -124,12 +124,53 @@ export const CartStyle = styled.div`
         display: flex;
         flex-direction: column;
         gap: 12px;
+        
+        
     }
     
     .summary {
         display: flex;
         flex-direction: column;
         gap: 24px;
+    }
+
+    .order-info {
+        h1 {
+            padding: 0 0 24px 0;
+        }
+
+        border: 1px solid ${({ theme }) => theme.color.border};
+        border-radius: ${({ theme }) => theme.borderRadius.default};
+        padding: 12px;
+    }
+
+    .delivery {
+        fieldset {
+            border: 0;
+            margin: 0;
+            padding: 0 0 12px 0;
+            display: flex;
+            justify-content: start;
+            gap: 8px;
+
+            label {
+                width: 80px;
+            }
+
+            .input {
+                flex: 1;
+                input {
+                    width: 100%;
+                }
+            }
+        }
+
+        .error-text {
+            color: red;
+            margin: 0;
+            padding: 0 0 12px 0;
+            text-align: right;
+        }
     }
 `;
 

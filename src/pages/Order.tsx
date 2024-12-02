@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { Delivery, OrderSheet } from "../model/order.model";
 import { order } from "../api/order.api";
 import { useAlert } from "../hooks/useAlert";
+import FindAddressButton from "../components/order/FindAddressButton";
 
 interface DeliveryForm extends Delivery {
   addressDetail: string;
@@ -59,6 +60,7 @@ function Order() {
                 <div className="input">
                   <InputText inputType="text" {...register("address", { required: true })} />
                 </div>
+                <FindAddressButton onCompleted={(address) => {setValue("address", address)}}/>
               </fieldset>
               {errors.address && <p className="error-text">주소를 입력해 주세요</p>}
 
