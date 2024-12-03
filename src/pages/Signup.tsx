@@ -8,6 +8,7 @@ import {useForm} from "react-hook-form";
 import {signup} from "../api/auth.api";
 import {useNavigate} from "react-router-dom"
 import {useAlert} from "../hooks/useAlert";
+import {useAuth} from "@/hooks/useAuth";
 
 export interface SignupProps {
     email : string;
@@ -15,9 +16,7 @@ export interface SignupProps {
 }
 
 const Signup = () => {
-    const navigate = useNavigate();
-
-    const {showAlert} = useAlert();
+    const {userSignup} = useAuth();
 
     const {
         register,
@@ -26,12 +25,7 @@ const Signup = () => {
     } = useForm<SignupProps>();
 
     const onSubmit = async (data : SignupProps) => {
-        await signup(data).then((res) => {
-            showAlert("회원가입이 완료되었습니다.");
-            navigate("/login");
-        }).catch((error) => {
-            showAlert(error.message);
-        })
+        await userSignup(data);
     }
 
     return (

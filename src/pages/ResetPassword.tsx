@@ -9,6 +9,7 @@ import {resetPassword, resetRequest, signup} from "../api/auth.api";
 import {useNavigate} from "react-router-dom"
 import {useAlert} from "../hooks/useAlert";
 import {SignupStyle} from "./Signup";
+import {useAuth} from "@/hooks/useAuth";
 
 export interface SignupProps {
     email : string;
@@ -16,9 +17,7 @@ export interface SignupProps {
 }
 
 const ResetPassword = () => {
-    const navigate = useNavigate();
-    const {showAlert} = useAlert();
-    const [resetRequested, setResetRequested] = useState(false);
+    const {userResetPassword, userResetRequest, resetRequested} = useAuth();
 
     const {
         register,
@@ -28,19 +27,12 @@ const ResetPassword = () => {
 
     const onSubmit = async (data : SignupProps) => {
         if(resetRequested){
-            resetPassword(data).then(() => {
-                showAlert("비밀번호가 초기화 되었습니다.");
-                navigate("/login");
-            }).catch((err) => {
-                showAlert(err.message);
-            })
+            await userResetPassword(data);
         } else {
-            resetRequest(data).then(() => {
-                setResetRequested(true);
-            }).catch((err) => {
-                showAlert(err.message);
-            })
+            await userResetRequest(data);
         }
+
+        // resetRequested ? userResetPassword(data) : userResetRequest(data);
     }
 
     return (

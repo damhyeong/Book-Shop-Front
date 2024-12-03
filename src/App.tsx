@@ -13,85 +13,82 @@ import BookDetail from "./pages/BookDetail";
 import Cart from "./pages/Cart";
 import Order from "./pages/Order";
 import OrderList from "./pages/OrderList";
+import {queryClient} from "@/api/queryClient";
+import {QueryClientProvider} from "react-query";
 
-const router = createBrowserRouter([
+const routeList = [
     {
         path : "/",
-        element: <Layout><Home/></Layout>,
-        errorElement : <Layout><Error /></Layout>
+        element: (<Home/>),
     },
     {
         path: "/register",
         element: (
-            <Layout>
                 <Signup />
-            </Layout>
         )
     },
     {
         path: "/reset",
         element: (
-            <Layout>
                 <ResetPassword />
-            </Layout>
         )
     },
     {
         path: "/login",
         element: (
-            <Layout>
                 <Login />
-            </Layout>
         )
     },
     {
         path: "/books",
         element: (
-            <Layout>
                 <Books />
-            </Layout>
         )
     },
     {
         path: "/book/:bookId",
         element: (
-            <Layout>
                 <BookDetail />
-            </Layout>
         )
     },
     {
         path: "/cart",
         element: (
-            <Layout>
                 <Cart />
-            </Layout>
         )
     },
     {
         path: "/order",
         element: (
-            <Layout>
                 <Order />
-            </Layout>
         )
     },
     {
         path: "/orderlist",
         element: (
-            <Layout>
                 <OrderList />
-            </Layout>
         )
     }
-]);
+];
+
+const newRouteList = routeList.map((route) => {
+    return {
+        ...route,
+        element: <Layout>{route.element}</Layout>,
+        errorElement: <Error />
+    }
+})
+
+const router = createBrowserRouter(newRouteList);
 
 function App() {
     return (
-        <BookStoreThemeProvider>
-            <ThemeSwitcher />
-            <RouterProvider router={router}/>
-        </BookStoreThemeProvider>
+        <QueryClientProvider client={queryClient}>
+            <BookStoreThemeProvider>
+                <ThemeSwitcher/>
+                <RouterProvider router={router}/>
+            </BookStoreThemeProvider>
+        </QueryClientProvider>
     )
 }
 
